@@ -1,0 +1,417 @@
+/* Empty. Add your own CSS if you like */
+
+
+.info {
+  position: relative;
+  margin: 5 auto;
+  width: 300px;
+  text-align: left;
+  float: left;
+}
+#infoContainer {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 100%;
+  text-align: center;
+  background: #99c8ff;
+  color: #067aff;
+}
+#infoCenter {
+  margin: 0 auto;
+  position: relative;
+  width: 900px;
+}
+#title {
+  width: 300px;
+  text-align: right;
+  float: right;
+}
+#control {
+  width: 300px;
+
+}
+#message {
+  font-family: 'Digital W00';
+  color: rgba(255, 255, 255, 0.6);
+  text-align: left;
+}
+#playPauseContainer {
+  float: left;
+  width: 70px;
+}
+.pause {
+  margin-left: 5px;
+  width: 20px;
+  height: 50px;
+  border-left: 10px solid #FFFFFF;
+  border-right: 10px solid #FFFFFF;
+  line-height: 50px;
+}
+.play {
+  width: 0px;
+  height: 0px;
+  border-left: 50px solid #FFFFFF;
+  border-top: 25px solid transparent;
+  border-bottom: 25px solid transparent;
+  font-size: 0;
+  line-height: 0;
+}
+#playPause{
+  background: red;
+  z-index: 10;
+  position: fixed;
+  left: 0;
+  top: 40px;
+  width: 200px;
+}
+#tunerViewContainer {
+  top: 0px;
+  position: fixed;
+  width:100%;
+  background: #e4e4e4;
+  text-align: center;
+}
+#tunerView {
+  margin: 0 auto;
+  position: relative;
+  height: 500px;
+  width: 400px;
+}
+.tipNormal {
+  margin: 0 auto;
+  width: 4px;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-top: 50px solid rgba(255, 255, 255, 0.6);
+  font-size: 0;
+  line-height: 0;
+}
+.tipHighlighted {
+  margin: 0 auto;
+  width: 4px;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-top: 50px solid #ffffff;
+  font-size: 0;
+  line-height: 0;
+}
+#tick_0 {
+  top: 50px;
+  left: 198px;
+  position: absolute;
+  width: 4px;
+  height: 60px;
+  -webkit-transform-origin: 50% 400px;
+  -webkit-transform: rotate(0);
+  -moz-transform-origin: 50% 400px;
+  -moz-transform: rotate(0);
+  background: rgba(255, 255, 255, 0.6);
+}
+#tick_1 {
+  top: 50px;
+  left: 198px;
+  position: absolute;
+  width: 4px;
+  height: 30px;
+  -webkit-transform-origin: 50% 400px;
+  -webkit-transform: rotate(4.5deg);
+  -moz-transform-origin: 50% 400px;
+  -moz-transform: rotate(4.5deg);
+  background: rgba(255, 255, 255, 0.6);
+}
+#tick_-1 {
+  top: 50px;
+  left: 198px;
+  position: absolute;
+  width: 4px;
+  height: 30px;
+  -webkit-transform-origin: 50% 400px;
+  -webkit-transform: rotate(-4.5deg);
+  -moz-transform-origin: 50% 400px;
+  -moz-transform: rotate(-4.5deg);
+  background: rgba(255, 255, 255, 0.6);
+}
+#tick_2 {
+  top: 50px;
+  left: 198px;
+  position: absolute;
+  width: 4px;
+  height: 30px;
+  -webkit-transform-origin: 50% 400px;
+  -webkit-transform: rotate(9deg);
+  -moz-transform-origin: 50% 400px;
+  -moz-transform: rotate(9deg);
+  background: rgba(255, 255, 255, 0.6);
+}
+#tick_-2 {
+  top: 50px;
+  left: 198px;
+  position: absolute;
+  width: 4px;
+  height: 30px;
+  -webkit-transform-origin: 50% 400px;
+  -webkit-transform: rotate(-9deg);
+  -moz-transform-origin: 50% 400px;
+  -moz-transform: rotate(-9deg);
+  background: rgba(255, 255, 255, 0.6);
+}
+#tick_3 {
+  top: 50px;
+  left: 198px;
+  position: absolute;
+  width: 4px;
+  height: 30px;
+  -webkit-transform-origin: 50% 400px;
+  -webkit-transform: rotate(13.5deg);
+  -moz-transform-origin: 50% 400px;
+  -moz-transform: rotate(13.5deg);
+  background: rgba(255, 255, 255, 0.6);
+}
+#tick_-3 {
+  top: 50px;
+  left: 198px;
+  position: absolute;
+  width: 4px;
+  height: 30px;
+  -webkit-transform-origin: 50% 400px;
+  -webkit-transform: rotate(-13.5deg);
+  -moz-transform-origin: 50% 400px;
+  -moz-transform: rotate(-13.5deg);
+  background: rgba(255, 255, 255, 0.6);
+}
+#tick_4 {
+  top: 50px;
+  left: 198px;
+  position: absolute;
+  width: 4px;
+  height: 30px;
+  -webkit-transform-origin: 50% 400px;
+  -webkit-transform: rotate(18deg);
+  -moz-transform-origin: 50% 400px;
+  -moz-transform: rotate(18deg);
+  background: rgba(255, 255, 255, 0.6);
+}
+#tick_-4 {
+  top: 50px;
+  left: 198px;
+  position: absolute;
+  width: 4px;
+  height: 30px;
+  -webkit-transform-origin: 50% 400px;
+  -webkit-transform: rotate(-18deg);
+  -moz-transform-origin: 50% 400px;
+  -moz-transform: rotate(-18deg);
+  background: rgba(255, 255, 255, 0.6);
+}
+#tick_5 {
+  top: 50px;
+  left: 198px;
+  position: absolute;
+  width: 4px;
+  height: 30px;
+  -webkit-transform-origin: 50% 400px;
+  -webkit-transform: rotate(22.5deg);
+  -moz-transform-origin: 50% 400px;
+  -moz-transform: rotate(22.5deg);
+  background: rgba(255, 255, 255, 0.6);
+}
+#tick_-5 {
+  top: 50px;
+  left: 198px;
+  position: absolute;
+  width: 4px;
+  height: 30px;
+  -webkit-transform-origin: 50% 400px;
+  -webkit-transform: rotate(-22.5deg);
+  -moz-transform-origin: 50% 400px;
+  -moz-transform: rotate(-22.5deg);
+  background: rgba(255, 255, 255, 0.6);
+}
+#tick_6 {
+  top: 50px;
+  left: 198px;
+  position: absolute;
+  width: 4px;
+  height: 30px;
+  -webkit-transform-origin: 50% 400px;
+  -webkit-transform: rotate(27deg);
+  -moz-transform-origin: 50% 400px;
+  -moz-transform: rotate(27deg);
+  background: rgba(255, 255, 255, 0.6);
+}
+#tick_-6 {
+  top: 50px;
+  left: 198px;
+  position: absolute;
+  width: 4px;
+  height: 30px;
+  -webkit-transform-origin: 50% 400px;
+  -webkit-transform: rotate(-27deg);
+  -moz-transform-origin: 50% 400px;
+  -moz-transform: rotate(-27deg);
+  background: rgba(255, 255, 255, 0.6);
+}
+#tick_7 {
+  top: 50px;
+  left: 198px;
+  position: absolute;
+  width: 4px;
+  height: 30px;
+  -webkit-transform-origin: 50% 400px;
+  -webkit-transform: rotate(31.5deg);
+  -moz-transform-origin: 50% 400px;
+  -moz-transform: rotate(31.5deg);
+  background: rgba(255, 255, 255, 0.6);
+}
+#tick_-7 {
+  top: 50px;
+  left: 198px;
+  position: absolute;
+  width: 4px;
+  height: 30px;
+  -webkit-transform-origin: 50% 400px;
+  -webkit-transform: rotate(-31.5deg);
+  -moz-transform-origin: 50% 400px;
+  -moz-transform: rotate(-31.5deg);
+  background: rgba(255, 255, 255, 0.6);
+}
+#tick_8 {
+  top: 50px;
+  left: 198px;
+  position: absolute;
+  width: 4px;
+  height: 30px;
+  -webkit-transform-origin: 50% 400px;
+  -webkit-transform: rotate(36deg);
+  -moz-transform-origin: 50% 400px;
+  -moz-transform: rotate(36deg);
+  background: rgba(255, 255, 255, 0.6);
+}
+#tick_-8 {
+  top: 50px;
+  left: 198px;
+  position: absolute;
+  width: 4px;
+  height: 30px;
+  -webkit-transform-origin: 50% 400px;
+  -webkit-transform: rotate(-36deg);
+  -moz-transform-origin: 50% 400px;
+  -moz-transform: rotate(-36deg);
+  background: rgba(255, 255, 255, 0.6);
+}
+#tick_9 {
+  top: 50px;
+  left: 198px;
+  position: absolute;
+  width: 4px;
+  height: 30px;
+  -webkit-transform-origin: 50% 400px;
+  -webkit-transform: rotate(40.5deg);
+  -moz-transform-origin: 50% 400px;
+  -moz-transform: rotate(40.5deg);
+  background: rgba(255, 255, 255, 0.6);
+}
+#tick_-9 {
+  top: 50px;
+  left: 198px;
+  position: absolute;
+  width: 4px;
+  height: 30px;
+  -webkit-transform-origin: 50% 400px;
+  -webkit-transform: rotate(-40.5deg);
+  -moz-transform-origin: 50% 400px;
+  -moz-transform: rotate(-40.5deg);
+  background: rgba(255, 255, 255, 0.6);
+}
+#tick_10 {
+  top: 50px;
+  left: 198px;
+  position: absolute;
+  width: 4px;
+  height: 30px;
+  -webkit-transform-origin: 50% 400px;
+  -webkit-transform: rotate(45deg);
+  -moz-transform-origin: 50% 400px;
+  -moz-transform: rotate(45deg);
+  background: rgba(255, 255, 255, 0.6);
+}
+#tick_-10 {
+  top: 50px;
+  left: 198px;
+  position: absolute;
+  width: 4px;
+  height: 30px;
+  -webkit-transform-origin: 50% 400px;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform-origin: 50% 400px;
+  -moz-transform: rotate(-45deg);
+  background: rgba(255, 255, 255, 0.6);
+}
+#tick_10 {
+  top: 50px;
+  left: 198px;
+  position: absolute;
+  width: 4px;
+  height: 60px;
+  -webkit-transform-origin: 50% 400px;
+  -webkit-transform: rotate(10);
+  -moz-transform-origin: 50% 400px;
+  -moz-transform: rotate(10);
+  background: rgba(255, 255, 255, 0.6);
+}
+#tick_-10 {
+  top: 50px;
+  left: 198px;
+  position: absolute;
+  width: 4px;
+  height: 60px;
+  -webkit-transform-origin: 50% 400px;
+  -webkit-transform: rotate(10);
+  -moz-transform-origin: 50% 400px;
+  -moz-transform: rotate(10);
+  background: rgba(255, 255, 255, 0.6);
+}
+#needle2 {
+  margin: 0 auto;
+  top: 95px;
+  position: relative;
+  width: 12px;
+  border-width: 65px 4px 0;
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.6) transparent;
+  -webkit-transform-origin: 50% 305px;
+  -moz-transform-origin: 50% 305px;
+  -ms-transform-origin: 50% 305px;
+  -o-transform-origin: 50% 305px;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+}
+#needle2:before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  left: -4px;
+  border-width: 0 10px 35px;
+  border-style: solid;
+  border-color: transparent transparent rgba(255, 255, 255, 0.6);
+}
+#noteView {
+  font-family: 'Digital W00';
+  top: 0px;
+  left: 125px;
+  width: 200px;
+  height: 400px;
+  text-align: left;
+  display: table-cell;
+  vertical-align: bottom;
+  position: absolute;
+  font-size: 300px;
+  color: rgba(255, 255, 255, 0.6);
+}
+.sharp {
+  font-family: 'Digital W00';
+  font-size: 150px;
+}
