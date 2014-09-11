@@ -1,9 +1,10 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, $window) {
+.controller('DashCtrl', function($scope, $timeout, $window) {
 
   var numTicks = 10;
   var dialDegrees = 45;
+  $scope.timer = "Pausad"
 
 
   window.addEventListener('load', function(){
@@ -22,6 +23,7 @@ angular.module('starter.controllers', [])
   {
     var div = document.getElementById("playPause");
     div.className = "pause";
+    console.log('play')
     startAudio();
     startClock();
     $scope.playing = true;
@@ -34,15 +36,14 @@ angular.module('starter.controllers', [])
     div.className = "play";
     stopAudio();
     $scope.playing = false;
-    var message = $("#message");
-    message.text("Paused: Click Play to continue");
+    // var message = $("#message");
+    // message.text("Paused: Click Play to continue");
+    $scope.timer = "Pausad"
     clearInterval(timerInterval);
   }
   $scope.playPause = function ()
   {
     
-    var el = document.getElementById("playPause");
-    console.log('Play', el.$attrs)
     if($scope.playing == true)
     {
       pause();
@@ -57,12 +58,12 @@ angular.module('starter.controllers', [])
   {
     var timeoutLengthSeconds = 5*60;
     var start = new Date;
-    updateClock(timeoutLengthSeconds);
+    $scope.updateClock(timeoutLengthSeconds);
       timerInterval = setInterval(function() {
           var secondsPassed = (new Date - start)/1000;
           if(secondsPassed < timeoutLengthSeconds)
           {
-            updateClock(timeoutLengthSeconds-secondsPassed);
+            $scope.updateClock(timeoutLengthSeconds-secondsPassed);
           }
           else
           {
@@ -71,7 +72,7 @@ angular.module('starter.controllers', [])
       }, 1000);
   }
 
-  var updateClock = function(timeoutLengthSeconds)
+  $scope.updateClock = function(timeoutLengthSeconds)
   {
     function formatNumberLength(num, length) {
         var r = "" + num;
@@ -82,9 +83,15 @@ angular.module('starter.controllers', [])
     }
     var minutes = Math.floor(timeoutLengthSeconds / 60);
     var seconds = Math.floor(timeoutLengthSeconds%60);
+    //Så att DOM uppdaterar. scope apply updaterar timer
+    $scope.onTimeout = function(){
+        mytimeout = $timeout($scope.onTimeout,100);
+        $scope.timer = formatNumberLength(minutes,2)+":"+formatNumberLength(seconds,2);
+    }
+    var mytimeout = $timeout($scope.onTimeout,100);
     
-    $scope.clockMessage = "Timeout: " +formatNumberLength(minutes,2)+":"+formatNumberLength(seconds,2);
-    // console.log('clockelement ', $scope.clockMessage)
+
+    console.log('clockelement ', $scope.timer)
     // var clock = document.getElementById("#message").text("Timeout: "+formatNumberLength(minutes,2)+":"+formatNumberLength(seconds,2));
   }
 
