@@ -1,41 +1,28 @@
 <ion-view title="Dashboard" >
-  <ion-content class="padding">
-    <h1>Dash</h1>
+<ion-content class="padding">
 
-    <div id="control">
-    <div id="playPauseContainer">
-       <div id="playPause" ng-class="{true:'play', false:'pause'}[playing==true]" ng-click="playPause()">   <h1>Play/Pause</h1></div>
-      </div>
+
+<div id="control">
+  <div id="playPauseContainer">
+    <div id="playPause" ng-class="{true:'play', false:'pause'}[playing==true]" ng-click="playPause()">  
     </div>
-    <div id="message">Timeout: {{timer}}</div> 
   </div>
-  <!-- <div id="infoContainer">
-  <div id="infoCenter">
-  <div class="info">
-    <h2>Welcome to the future of online tuners</h2>
-    <p>Unlike most other online tuners, this is built on new WebRTC technology. What does that mean for you? Previously tuner's have required the use of flash, which is becoming an outdated technology and requires plugins for your browser.</p>
-  </div>
-  <div class="info">
-    <h2>Need a guitar tuner for iOS?</h2>
-    <p>WebRTC is not yet supported on any of the iOS browsers. Until that time I recommend any of the free guitar tuner apps out there, including <a href="http://www.guitar-tuner-app.com">my own</a></p>
-  </div>
-  <div class="info">
-    <h2>The needle doesn't move!</h2>
-    <p>First check that you've allowed microphone access on your browser. This is usually displayed at the top of the screen. You must also make sure that your microphone volume is loud enough.</p>
-  </div>
-  </div>
-</div> -->
-<div id="tunerViewContainer">
-  
-  <div id="tunerView">
-    <div id="tip" class="tipNormal"></div>
-    <div id="needle2" style="-webkit-transform: rotate(13.2790170090498deg);"></div>
-    <div id="noteView">E</div>
-    <div id="tick_0" style=""></div>
-  <div id="tick_1"></div><div id="tick_-1"></div><div id="tick_2"></div><div id="tick_-2"></div><div id="tick_3"></div><div id="tick_-3"></div><div id="tick_4"></div><div id="tick_-4"></div><div id="tick_5"></div><div id="tick_-5"></div><div id="tick_6"></div><div id="tick_-6"></div><div id="tick_7"></div><div id="tick_-7"></div><div id="tick_8"></div><div id="tick_-8"></div><div id="tick_9"></div><div id="tick_-9"></div><div id="tick_10"></div><div id="tick_-10"></div></div>
-
-  
-
 </div>
-  </ion-content>
+
+<div id="message">Timeout: {{timer}}</div> 
+</div>
+
+
+  <div id="tunerViewContainer">
+    <div id="tunerView">
+      <div id="tip" class="tipNormal"></div>
+      <div id="needle2" style="-webkit-transform: rotate(13.2790170090498deg);"></div>
+      <div id="noteView">E</div>
+      <div id = "tick_0" class="tick_0_normal"></div>
+      <div id="tick_1"></div><div id="tick_-1"></div><div id="tick_2"></div><div id="tick_-2"></div><div id="tick_3"></div><div id="tick_-3"></div><div id="tick_4"></div><div id="tick_-4"></div><div id="tick_5"></div><div id="tick_-5"></div><div id="tick_6"></div><div id="tick_-6"></div><div id="tick_7"></div><div id="tick_-7"></div><div id="tick_8"></div><div id="tick_-8"></div><div id="tick_9"></div><div id="tick_-9"></div><div id="tick_10"></div><div id="tick_-10"></div>
+    </div>
+  </div>
+
+
+</ion-content>
 </ion-view>

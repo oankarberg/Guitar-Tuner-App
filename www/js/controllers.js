@@ -23,7 +23,6 @@ angular.module('starter.controllers', [])
   {
     var div = document.getElementById("playPause");
     div.className = "pause";
-    console.log('play')
     startAudio();
     startClock();
     $scope.playing = true;
@@ -90,8 +89,6 @@ angular.module('starter.controllers', [])
     }
     var mytimeout = $timeout($scope.onTimeout,100);
     
-
-    console.log('clockelement ', $scope.timer)
     // var clock = document.getElementById("#message").text("Timeout: "+formatNumberLength(minutes,2)+":"+formatNumberLength(seconds,2));
   }
 
@@ -112,21 +109,21 @@ angular.module('starter.controllers', [])
     var noteView = document.getElementById("noteView");
     noteView.innerHTML = notes[noteIndex];
 
-    var body = document.getElementsByTagName("body")[0];
+    //var body = document.getElementsByTagName("body")[0];
 
     if (Math.abs(noteError) < 0.05)
     {
       var tip = document.getElementById("tip");
       var tick = document.getElementById("tick_0");
       tip.className = "tipHighlighted";
-      tick.style.backgroundColor = '#ffffff';
+      tick.className = "tick_0_highlighted";
     }
     else
     {
       var tip = document.getElementById("tip");
       var tick = document.getElementById("tick_0");
       tip.className = "tipNormal";
-      tick.style.backgroundColor = '';
+      tick.className = "tick_0_normal";
     }
     
   }
