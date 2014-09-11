@@ -1,6 +1,12 @@
 /* Empty. Add your own CSS if you like */
 
+body, p, div{
 
+  color: black !important;
+}
+p{
+  color: black;
+}
 .info {
   position: relative;
   margin: 5 auto;
@@ -35,6 +41,8 @@
   font-family: 'Digital W00';
   color: rgba(255, 255, 255, 0.6);
   text-align: left;
+  position: absolute;
+  top:500px;
 }
 #playPauseContainer {
   float: left;

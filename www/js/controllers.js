@@ -2,9 +2,10 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope, $window) {
 
-  //Copyright Tom Hoddes 2014 http://freetuner.co 
   var numTicks = 10;
   var dialDegrees = 45;
+
+
   window.addEventListener('load', function(){
     var $tunerViewContainer = $("#tunerView");
     for (var i = 1; i <= numTicks; i++) {
@@ -21,7 +22,6 @@ angular.module('starter.controllers', [])
   {
     var div = document.getElementById("playPause");
     div.className = "pause";
-    console.log('Play', div.className)
     startAudio();
     startClock();
     $scope.playing = true;
@@ -71,7 +71,7 @@ angular.module('starter.controllers', [])
       }, 1000);
   }
 
-  function updateClock(timeoutLengthSeconds)
+  var updateClock = function(timeoutLengthSeconds)
   {
     function formatNumberLength(num, length) {
         var r = "" + num;
@@ -82,7 +82,10 @@ angular.module('starter.controllers', [])
     }
     var minutes = Math.floor(timeoutLengthSeconds / 60);
     var seconds = Math.floor(timeoutLengthSeconds%60);
-    var clock = $("#message").text("Timeout: "+formatNumberLength(minutes,2)+":"+formatNumberLength(seconds,2));
+    
+    $scope.clockMessage = "Timeout: " +formatNumberLength(minutes,2)+":"+formatNumberLength(seconds,2);
+    // console.log('clockelement ', $scope.clockMessage)
+    // var clock = document.getElementById("#message").text("Timeout: "+formatNumberLength(minutes,2)+":"+formatNumberLength(seconds,2));
   }
 
   function updateTuner(noteIndex, noteError) 
@@ -145,6 +148,8 @@ angular.module('starter.controllers', [])
       return {"peakInd":peakMaxInd,"peakAmp":peakMax};
   }
 
+  //MAIN
+
   var scriptProcessorNode;
   var audioWindowSize = 65536;
   var audioWindow = new Float32Array(audioWindowSize);
@@ -177,6 +182,7 @@ angular.module('starter.controllers', [])
       var noteOther = (errorMin > 0) ? noteFull+1 : noteFull-1;
       var freqOther = Math.pow(2,noteOther/12.0)*440.0;
       var cent = errorMin / Math.abs(noteFreq - freqOther);
+      // console.log('note' ,note , 'cent ' ,cent , 'frekvens ', frequency);
       
       var noteInfo = {
           "noteIndex": note,
@@ -186,23 +192,25 @@ angular.module('starter.controllers', [])
 
       return noteInfo;
   }
-
+  // Create a stream of the audio input 
   function gotStream(stream) {
       var bufferSize = 2048;
-      gainNode = audioContext.createGain();
+      gainNode = audioContext.createGain(); //create volume 
       gainNode.gain.value = 1000.0;
 
-      inputStreamNode = audioContext.createMediaStreamSource(stream);
-      inputStreamNode.connect(gainNode);
+      inputStreamNode = audioContext.createMediaStreamSource(stream); //Skapa en audioström
+      inputStreamNode.connect(gainNode);    //koppla ihop volym med strömmen
 
       //TODO: use deprecated function in other versions?
-      scriptProcessorNode = audioContext.createScriptProcessor(bufferSize, 1, 1);
+      scriptProcessorNode = audioContext.createScriptProcessor(bufferSize, 1, 1); //Skapar ett scriptprocessor objekt med info om input, analysera ljud från buffer
       console.log('script ', scriptProcessorNode);
-      sampleRate = audioContext.sampleRate;
-      fft = new FFT(audioWindowSize, sampleRate);
+      sampleRate = audioContext.sampleRate; //Hämta sample per sekund från audio input, används för alla objekt/noder 
+      console.log('sampleRate ', sampleRate, audioWindowSize);
+      fft = new FFT(audioWindowSize, sampleRate); //använder dsp för att fourietransformera, Hitta en balans mellan windowsize och samplerate (65536 standard?)
 
-      gainNode.connect (scriptProcessorNode);
+      gainNode.connect (scriptProcessorNode); //koppla ihop volym och ljudobjekt 
 
+      // zeroPadding/zeroGain öka  vektorn för att få bättre upplösning i frekvensen. nogrannare. Effektivare
       zeroGain = audioContext.createGain();
       zeroGain.gain.value = 0.0;
       scriptProcessorNode.connect( zeroGain );
@@ -218,19 +226,20 @@ angular.module('starter.controllers', [])
 
   function startAudio()
   {
+      //onaudioprocess är en eventhandler. 
       scriptProcessorNode.onaudioprocess = function(e){
-          var timeVector = e.inputBuffer.getChannelData(0);
-          audioWindow.set(audioWindow.subarray(timeVector.length));
-          audioWindow.set(timeVector,audioWindowSize - timeVector.length);
-          applyHamming(audioWindow,audioWindowProcessed);
-          fft.forward(audioWindowProcessed);
+          var timeVector = e.inputBuffer.getChannelData(0); //Hämta vektorn med audioData
+          audioWindow.set(audioWindow.subarray(timeVector.length)); // fixa med hamming
+          audioWindow.set(timeVector,audioWindowSize - timeVector.length); // fixa med hamming
+          applyHamming(audioWindow,audioWindowProcessed); // lägg hamming
+          fft.forward(audioWindowProcessed);  //gör fast fourier transform
 
-          var spectrum = fft.spectrum;
-          var peakInfo = getMaxPeak(spectrum);
-          if (peakInfo["peakAmp"] > 0.5)
+          var spectrum = fft.spectrum;    //ta frekvensspektrumet 
+          var peakInfo = getMaxPeak(spectrum);  //hämta frekvens där vi har högst amplitud
+          if (peakInfo["peakAmp"] > 0.5)    //använd bara peakar över 0.5 för bättre nogrannhet
           {
-              var frequency = peakInfo["peakInd"]*sampleRate/audioWindowSize;
-              var noteInfo = getNoteInfo(frequency);
+              var frequency = peakInfo["peakInd"]*sampleRate/audioWindowSize;   //omvandla till frekvens
+              var noteInfo = getNoteInfo(frequency);      //Hämta info från noter
               updateTuner(noteInfo["noteIndex"],noteInfo["noteError"]);
           }
 
@@ -241,9 +250,9 @@ angular.module('starter.controllers', [])
   {
       alert("Sorry. Your browser is not supported. Please use latest versions of either Chrome or Firefox.")
   }
-
+  //allow audio from user
   $scope.initAudio = function () {
-      console.log('initAudio')
+      // console.log('initAudio')
       if (!navigator.getUserMedia)
       {
           navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -254,9 +263,9 @@ angular.module('starter.controllers', [])
           browserNotSupported();
       }
 
-
+      // which media input is used , 
       navigator.getUserMedia({audio:true}, gotStream, function(e) {
-              alert('Error getting audio');
+              // alert('Error getting audio');
               console.log(e);
           });
   }
