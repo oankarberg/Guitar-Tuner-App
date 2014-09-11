@@ -83,7 +83,7 @@ angular.module('starter.controllers', [])
     }
     var minutes = Math.floor(timeoutLengthSeconds / 60);
     var seconds = Math.floor(timeoutLengthSeconds%60);
-    //Så att DOM uppdaterar. scope apply updaterar timer
+    //Kallar onTimeout för att $scope.timer ska uppdateras i DOM
     $scope.onTimeout = function(){
         mytimeout = $timeout($scope.onTimeout,100);
         $scope.timer = formatNumberLength(minutes,2)+":"+formatNumberLength(seconds,2);
