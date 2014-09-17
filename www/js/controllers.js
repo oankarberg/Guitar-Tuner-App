@@ -160,7 +160,7 @@ angular.module('starter.controllers', [])
   var audioWindowProcessed = new Float32Array(audioWindowSize);
   var hammingWindowFilter = new Float32Array(audioWindowSize);
   var sampleRate;
-  for (var i = 0; i < hammingWindowFilter.length; i++) {
+  for (var i = 0; i < hammingWindowFilter.length; i++) {  //skapar ett hammingfilter (fönsterfunktion) som vi sedan multiplicerar med ljudsignal för att få ut den delen vi är intresserade av
       hammingWindowFilter[i] = 0.54 - 0.46 * Math.cos(2*Math.PI * i/(hammingWindowFilter.length-1));
   };
   var fft;
