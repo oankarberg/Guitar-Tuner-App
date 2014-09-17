@@ -135,6 +135,7 @@ angular.module('starter.controllers', [])
   function getMaxPeak(inputVector,numFreq)
   {
       numFreq = typeof numFreq !== 'undefined' ? numFreq : 2000;
+
       var peaks = [];
       var peakMax = 0;
       var peakMaxInd = 0;
@@ -198,19 +199,19 @@ angular.module('starter.controllers', [])
   }
   // Create a stream of the audio input 
   function gotStream(stream) {
-      var bufferSize = 2048;
-      gainNode = audioContext.createGain(); //create volume 
+      var bufferSize = 2048; // Måste va power of 2, 
+      gainNode = audioContext.createGain(); //Skapar GainNode objekt som kan kontrollera volymen
       gainNode.gain.value = 1000.0;
+      
+      inputStreamNode = audioContext.createMediaStreamSource(stream); //Skapar ett MediaStreamAudioSourceNode objekt som strömmar in ljud från mikrofonen.
+      inputStreamNode.connect(gainNode); //Kopplar ihop med ljudkontrollen
 
-      inputStreamNode = audioContext.createMediaStreamSource(stream); //Skapa en audioström
-      inputStreamNode.connect(gainNode);    //koppla ihop volym med strömmen
-
-      //TODO: use deprecated function in other versions?
-      scriptProcessorNode = audioContext.createScriptProcessor(bufferSize, 1, 1); //Skapar ett scriptprocessor objekt med info om input, analysera ljud från buffer
+      scriptProcessorNode = audioContext.createScriptProcessor(bufferSize, 1, 1); //För ljudanalys, en inkanal och en utkanal
       console.log('script ', scriptProcessorNode);
+
       sampleRate = audioContext.sampleRate; //Hämta sample per sekund från audio input, används för alla objekt/noder 
       console.log('sampleRate ', sampleRate, audioWindowSize);
-      fft = new FFT(audioWindowSize, sampleRate); //använder dsp för att fourietransformera, Hitta en balans mellan windowsize och samplerate (65536 standard?)
+      fft = new FFT(audioWindowSize, sampleRate); //Skapar fouriertransform. Hitta en balans mellan windowsize och samplerate (65536 standard?)
 
       gainNode.connect (scriptProcessorNode); //koppla ihop volym och ljudobjekt 
 
@@ -218,7 +219,7 @@ angular.module('starter.controllers', [])
       zeroGain = audioContext.createGain();
       zeroGain.gain.value = 0.0;
       scriptProcessorNode.connect( zeroGain );
-      zeroGain.connect( audioContext.destination );
+      zeroGain.connect( audioContext.destination ); 
 
       play();
   }
