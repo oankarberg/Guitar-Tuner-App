@@ -92,11 +92,58 @@ angular.module('starter.controllers', [])
     // var clock = document.getElementById("#message").text("Timeout: "+formatNumberLength(minutes,2)+":"+formatNumberLength(seconds,2));
   }
 
-  function updateTuner(noteIndex, noteError) 
+  function updateTuner(noteInfo, frequency) 
   {
     //TODO: Assert params
+
+    console.log('freq', frequency);
+    
+    var error;
+    var noteView = document.getElementById("noteView");
+    var needle = document.getElementById("needle2");
+
+    if (frequency < 370.975){
+
+        for(var i = 0; i < noteInfo.length; i++){
+
+            // I intervallet
+            if(frequency > noteInfo[i].min && frequency < noteInfo[i].max){
+
+                //Sätter vilken not vi vill stämma efter
+                noteView.innerHTML = noteInfo[i].string;
+                //Skillnaden mot stämnoten, antingen + eller -
+                error = frequency - noteInfo[i].freq;
+                break;
+
+            }
+        }
+
+        //Ändra pilen
+        needle.style.webkitTransform = 'rotate('+error+'deg)';
+        needle.style.MozTransform = 'rotate('+error+'deg)';
+
+        console.log("error", error);
+
+        //0.05 från början
+        if (Math.abs(error) < 1)
+        {
+          var tip = document.getElementById("tip");
+          var tick = document.getElementById("tick_0");
+          tip.className = "tipHighlighted";
+          tick.className = "tick_0_highlighted";
+        }
+        else
+        {
+          var tip = document.getElementById("tip");
+          var tick = document.getElementById("tick_0");
+          tip.className = "tipNormal";
+          tick.className = "tick_0_normal";
+        }
+    }
+/*
     if(!(noteIndex && noteError) || !(noteIndex > 0 && noteIndex <12) || !(noteError > -50 && noteError < 50))
       return;
+    
 
     var sharpHtml = '<sup class="sharp">#</sup>';
     var notes = ['C','C'+sharpHtml,'D','D'+sharpHtml,'E','F','F'+sharpHtml,'G','G'+sharpHtml,'A','A'+sharpHtml,'B'];
@@ -111,20 +158,10 @@ angular.module('starter.controllers', [])
 
     //var body = document.getElementsByTagName("body")[0];
 
-    if (Math.abs(noteError) < 0.05)
-    {
-      var tip = document.getElementById("tip");
-      var tick = document.getElementById("tick_0");
-      tip.className = "tipHighlighted";
-      tick.className = "tick_0_highlighted";
-    }
-    else
-    {
-      var tip = document.getElementById("tip");
-      var tick = document.getElementById("tick_0");
-      tip.className = "tipNormal";
-      tick.className = "tick_0_normal";
-    }
+    */
+
+
+    
     
   }
     //Copyright Tom Hoddes 2014 http://freetuner.co 
@@ -178,16 +215,22 @@ angular.module('starter.controllers', [])
     return Math.log(val) / Math.LN2;
   }
 
-  function getNoteInfo(frequency)
+  function getNoteInfo()
   {
+
+    /*
       var note = (Math.round(57+log2( frequency/440.0 )*12 ))%12;
       var noteFull = Math.round(log2( frequency/440.0 )*12);
       var noteFreq = Math.pow(2,noteFull/12.0)*440.0;
+
+      console.log('note', note, 'notefull', noteFull, 'noteFreq', noteFreq);
+
       var errorMin = frequency - noteFreq;
       var noteOther = (errorMin > 0) ? noteFull+1 : noteFull-1;
       var freqOther = Math.pow(2,noteOther/12.0)*440.0;
       var cent = errorMin / Math.abs(noteFreq - freqOther);
-      // console.log('note' ,note , 'cent ' ,cent , 'frekvens ', frequency);
+
+      console.log('note' ,note , 'cent ' ,cent , 'frekvens ', frequency);
       
       var noteInfo = {
           "noteIndex": note,
@@ -195,7 +238,52 @@ angular.module('starter.controllers', [])
           "noteFreq": frequency
       };
 
-      return noteInfo;
+      return noteInfo;*/
+
+      var E = {
+          'string': 'E',
+          "freq": 82.41,
+          "min": 0,
+          "max": 93.205
+      };
+
+      var A = {
+          'string': 'A',
+          "freq": 110.00,
+          "min": 93.205,
+          "max": 128.415
+      };
+
+      var D = {
+          'string': 'D',
+          "freq": 146.83,
+          "min": 128.415,
+          "max": 171.415
+      };
+
+      var G = { 
+          'string': 'G',
+          "freq": 196.00,
+          "min": 171.415,
+          "max": 221.47
+      };
+
+      var B = {
+          'string': 'B',
+          "freq": 246.94,
+          "min": 221.47,
+          "max": 288.285
+      };
+
+      var Emax = {
+          'string': 'E',
+          "freq": 329.63,
+          "min": 288.285,
+          "max": 370.975
+      };
+
+      return [E, A, D, G, B, Emax];
+
   }
   // Create a stream of the audio input 
   function gotStream(stream) {
@@ -211,9 +299,9 @@ angular.module('starter.controllers', [])
 
       sampleRate = audioContext.sampleRate; //Hämta sample per sekund från audio input, används för alla objekt/noder 
       console.log('sampleRate ', sampleRate, audioWindowSize);
-      fft = new FFT(audioWindowSize, sampleRate); //Skapar fouriertransform. Hitta en balans mellan windowsize och samplerate (65536 standard?)
+      fft = new FFT(audioWindowSize, sampleRate); //Skapar fouriertransform. Hitta en balans mellan windowsize och samplerate (65536, 48000 standard?)
 
-      gainNode.connect (scriptProcessorNode); //koppla ihop volym och ljudobjekt 
+      gainNode.connect(scriptProcessorNode); //koppla ihop volym och ljudobjekt 
 
       // zeroPadding/zeroGain öka  vektorn för att få bättre upplösning i frekvensen. nogrannare. Effektivare
       zeroGain = audioContext.createGain();
@@ -244,8 +332,9 @@ angular.module('starter.controllers', [])
           if (peakInfo["peakAmp"] > 0.5)    //använd bara peakar över 0.5 för bättre nogrannhet
           {
               var frequency = peakInfo["peakInd"]*sampleRate/audioWindowSize;   //omvandla till frekvens
-              var noteInfo = getNoteInfo(frequency);      //Hämta info från noter
-              updateTuner(noteInfo["noteIndex"],noteInfo["noteError"]);
+              var noteInfo = getNoteInfo();      //Hämta info från noter
+              //updateTuner(noteInfo["noteIndex"],noteInfo["noteError"]);
+              updateTuner(noteInfo, frequency);
           }
 
       }
@@ -272,7 +361,7 @@ angular.module('starter.controllers', [])
       navigator.getUserMedia({audio:true}, gotStream, function(e) {
               // alert('Error getting audio');
               console.log(e);
-          });
+        });
   }
 
   $scope.$on('$viewContentLoaded', function(){
