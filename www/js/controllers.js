@@ -173,9 +173,30 @@ angular.module('starter.controllers', [])
   {
       numFreq = typeof numFreq !== 'undefined' ? numFreq : 2000;
 
+      var vec1 = inputVector;
+      var vec2 = [], vec3 = [], vec4 = [], vec5 = [];
+  
+      //console.log(vec1);
 
-      var vec1, vec2, vec3, vec4, vec5 = inputVector;
-      var peaks = [];
+      for(var i = 0; i < numFreq; i++)
+      {
+        if(i%2 == 0)
+          vec2.push(inputVector[i]);      
+        if(i%3 == 0)
+          vec3.push(inputVector[i]);
+        if(i%4 == 0)
+          vec4.push(inputVector[i]);
+        if(i%5 == 0)
+          vec5.push(inputVector[i]);
+      }
+
+      var SumVec = [];
+      for(var i = 0; i < numFreq; i++)
+      {
+        SumVec[i] = vec1[i] + vec2[i] +  vec3[i] + vec4[i] + vec5[i];
+      }
+
+      //var peaks = [];
       var peakMax = 0;
       var peakMaxInd = 0;
       var size = inputVector.length * 2;
@@ -185,7 +206,7 @@ angular.module('starter.controllers', [])
 
       for(var i=7;i<numFreq;i++)
       {
-          var amplitude = inputVector[i];
+          var amplitude = SumVec[i];
           if(amplitude>peakMax)
           {
               peakMax=amplitude;
@@ -333,6 +354,7 @@ angular.module('starter.controllers', [])
           fft.forward(audioWindowProcessed);  //gör fast fourier transform
 
           var spectrum = fft.spectrum;    //ta frekvensspektrumet 
+          //console.log(spectrum);
           var peakInfo = getMaxPeak(spectrum);  //hämta frekvens där vi har högst amplitud
           if (peakInfo["peakAmp"] > 0.5)    //använd bara peakar över 0.5 för bättre nogrannhet
           {
