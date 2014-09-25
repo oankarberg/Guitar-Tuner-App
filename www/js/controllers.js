@@ -136,10 +136,15 @@ angular.module('starter.controllers', [])
   {
       numFreq = typeof numFreq !== 'undefined' ? numFreq : 2000;
 
+
+      var vec1, vec2, vec3, vec4, vec5 = inputVector;
       var peaks = [];
       var peakMax = 0;
       var peakMaxInd = 0;
       var size = inputVector.length * 2;
+
+      
+
 
       for(var i=7;i<numFreq;i++)
       {
